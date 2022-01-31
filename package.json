@@ -1,0 +1,17 @@
+{
+  "name": "unipets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd ./client && npm run start",
+    "backend": "cd ./server && npm run start:dev",
+    "dev": "concurrently \"npm run client\" \"npm run backend\""
+  },
+  "keywords": [],
+  "author": "Anderson",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
