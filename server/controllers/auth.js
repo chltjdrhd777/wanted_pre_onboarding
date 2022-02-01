@@ -1,20 +1,17 @@
 const ejs = require("ejs");
 const nodemailer = require("nodemailer");
 const path = require("path");
-const { makeRandom } = require("utils/makeRandom");
+const { makeRandom } = require("../utils/makeRandom");
 
 module.exports = {
   signUp(req, res) {
     const { email, password, nickname } = req.body;
     const code = makeRandom(7);
-
     let emailTemplate;
-
     ejs.renderFile(path.join(__dirname, "../ejs/register.ejs"), { email, code }, (err, data) => {
       if (err) console.log(err);
       emailTemplate = data;
     });
-
     let transporter = nodemailer.createTransport({
       service: "Naver",
       host: "smtp.naver.com",
@@ -25,29 +22,25 @@ module.exports = {
         pass: process.env.SenderPassword,
       },
     });
-
     transporter.sendMail(
       {
         from: process.env.SenderEmail,
         to: email,
-        subject: "우니부니! 회원가입을 마무리해주세요",
+        subject: "회원가입을 마무리해주세요",
         html: emailTemplate,
       },
       (error, info) => {
         if (error) {
           console.log(error);
         }
-
         req.app.get("mailCodeStore")[email] = {
           password,
           nickname,
           code,
         };
-
         transporter.close();
       }
     );
-
     res.status(200).json({ message: "message send work" });
   },
   signIn(req, res) {},

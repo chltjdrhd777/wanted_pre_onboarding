@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import ReactDom from "react-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 function Modal({ children, onClose, className }) {
   const parentNode = document.querySelector("#modal");

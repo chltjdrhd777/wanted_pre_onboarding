@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 
 function Toggle({ onClick, children }) {
@@ -21,8 +21,8 @@ const S = {
     position: fixed;
     bottom: 3rem;
     right: 3rem;
-    z-index: 100;
     opacity: 0.5;
+    cursor: pointer;
     &:hover {
       opacity: 1;
     }

@@ -24,7 +24,7 @@ function LoginForm() {
 
       <div className="password flex-center">
         <label htmlFor="password">패스워드</label>
-        <input id="password" type="password" name="password" maxLength={20} />
+        <input id="password" type="password" name="password" maxLength={20} autoComplete="on" />
       </div>
 
       <button className="btn login-btn">로그인하기</button>

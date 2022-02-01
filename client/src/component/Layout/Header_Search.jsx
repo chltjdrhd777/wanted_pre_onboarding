@@ -36,7 +36,7 @@ const SearchForm = styled.form`
 
   .input-container {
     width: 100%;
-    height: 70%;
+    height: 90%;
     border: 1px solid gray;
     border-radius: 2rem;
     padding: 1rem 2rem;
@@ -47,6 +47,7 @@ const SearchForm = styled.form`
       border: none;
       background-color: transparent;
       color: ${({ theme }) => theme.colors.fontColor};
+      font-size: 1.5rem;
     }
   }
 `;
