@@ -31,10 +31,9 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //! Relations/////////////////////////////////////////////////////////
-const { User, Profile } = db;
+const { User } = db;
 
 //@ 1:1
-User.hasOne(Profile, { onDelete: "CASCADE" });
 
 //@ 1:N
 
@@ -45,22 +44,17 @@ db.sequelize.sync({ force: false, alter: process.env.NODE_ENV === "dev" }).then(
   console.log("sequelize activated");
 
   async function seed() {
-    //# 1. make test user
     let testUser = await User.findOne({});
 
     if (!testUser) {
-      testUser = await User.create({});
-      const profile = await Profile.create({
+      testUser = await User.create({
         social: "kakao",
         email: "test@kakao.com",
         nickname: "kakao",
         thumbImg:
           "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg",
       });
-      testUser.setProfile(profile);
     }
-
-    //# 2. make test user's profile
   }
 
   seed();

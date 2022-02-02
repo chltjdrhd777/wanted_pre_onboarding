@@ -7,11 +7,14 @@ module.exports = {
   signUp(req, res) {
     const { email, password, nickname } = req.body;
     const code = makeRandom(7);
+
     let emailTemplate;
     ejs.renderFile(path.join(__dirname, "../ejs/register.ejs"), { email, code }, (err, data) => {
       if (err) console.log(err);
       emailTemplate = data;
     });
+
+    //@ 전송 포터 만들기
     let transporter = nodemailer.createTransport({
       service: "Naver",
       host: "smtp.naver.com",
@@ -22,6 +25,8 @@ module.exports = {
         pass: process.env.SenderPassword,
       },
     });
+
+    //@ 포터를 통해 이메일 전달
     transporter.sendMail(
       {
         from: process.env.SenderEmail,

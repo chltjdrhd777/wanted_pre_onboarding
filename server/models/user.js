@@ -13,6 +13,25 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         primaryKey: true,
         unique: true,
       },
+      email: {
+        type: DataTypes.STRING,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      thumbImg: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      refreshToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,

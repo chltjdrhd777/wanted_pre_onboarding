@@ -7,11 +7,11 @@ function Modal({ children, onClose, className }) {
 
   const childNode = (
     <>
-      <S.ContentBox className={`flex-center-C ${className}`}>
+      <ContentBoxMedia className={`flex-center ${className ? className : ""}`}>
         <i className="fas fa-times" onClick={onClose}></i>
 
         {children}
-      </S.ContentBox>
+      </ContentBoxMedia>
       <S.BackdropBox className={className} onClick={onClose} />
     </>
   );
@@ -40,6 +40,9 @@ const S = {
       top: 3rem;
       right: 3rem;
       font-size: 3rem;
+      cursor: pointer;
+      z-index: 200;
+
       &:hover {
         color: ${({ theme }) => theme.colors.pointPink};
       }
@@ -58,5 +61,11 @@ const S = {
     z-index: 200;
   `,
 };
+
+const ContentBoxMedia = styled(S.ContentBox)`
+  @media screen and (max-width: 1000px) {
+    min-width: 40rem;
+  }
+`;
 
 export default Modal;

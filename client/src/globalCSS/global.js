@@ -59,7 +59,6 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-
   .flex-center {
     display:flex;
     align-items:center;

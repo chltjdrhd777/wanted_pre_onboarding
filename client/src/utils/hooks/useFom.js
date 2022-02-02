@@ -8,14 +8,24 @@ function useForm(initialValues) {
     success: false,
   });
 
-  function onHanldeInput({ key, value }) {
+  function onHanldeInput(key, value) {
     setFormState((prev) => {
       return { ...prev, [key]: value };
     });
   }
 
-  function onHandleSubmit(submitState) {
-    setSubmitState(submitState);
+  function onHandleSubmit(e, helper) {
+    e.preventDefault();
+    helper(formState, submitState, setSubmitState);
+  }
+
+  function onResetFormState() {
+    setFormState(initialValues);
+    setSubmitState({
+      status: "",
+      message: "",
+      success: false,
+    });
   }
 
   return {
@@ -23,6 +33,7 @@ function useForm(initialValues) {
     submitState,
     onHanldeInput,
     onHandleSubmit,
+    onResetFormState,
   };
 }
 

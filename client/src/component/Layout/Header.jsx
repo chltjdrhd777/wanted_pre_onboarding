@@ -8,13 +8,13 @@ import useMediaQuery from "utils/hooks/useMediaQuery";
 import { makeClassName } from "utils/helpers/makeClassName";
 
 import AuthModal from "component/Layout/Header_AuthModal";
+import { AuthCTXWrapper } from "utils/context/AuthContext";
 
 function Header({ children }) {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   const isUnderDesktop = useMediaQuery("(max-width: 1000px)");
   const categoryUlRef = useRef(null);
@@ -112,7 +112,11 @@ function Header({ children }) {
       </HeaderNavMedia>
 
       <S.ChildMain>{children}</S.ChildMain>
-      {loginModalOpen && <AuthModal onClose={onHandleLoginModalOpen} />}
+      {loginModalOpen && (
+        <AuthCTXWrapper>
+          <AuthModal onClose={onHandleLoginModalOpen} />
+        </AuthCTXWrapper>
+      )}
     </>
   );
 }
@@ -128,6 +132,8 @@ const S = {
     color: ${({ theme }) => theme.colors.boxFontColor};
     background-color: ${({ theme }) => theme.colors.boxBackground};
     box-shadow: 0 1px 8px ${({ theme }) => theme.colors.boxShadowColor};
+
+    transition: background-color 0.3s ease-in;
   `,
   HeaderContainer: styled.div`
     max-width: 80%;
@@ -196,6 +202,8 @@ const S = {
     width: 100vw;
     height: calc(100vh - 12rem);
     transform: translateY(12rem);
+    background-color: ${({ theme }) => theme.colors.background};
+    transition: background-color 0.3s ease-in;
 
     @media screen and (max-width: 1000px) {
       height: calc(100vh - 7rem);
@@ -253,6 +261,7 @@ const HeaderNavMedia = styled(S.HeaderNav)`
         position: absolute;
         top: 2rem;
         right: 2rem;
+        color: ${({ theme }) => theme.colors.blackZero};
       }
 
       li > a {

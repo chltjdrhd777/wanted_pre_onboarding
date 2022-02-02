@@ -6,7 +6,7 @@ const express = require("express");
 
 const app = express();
 
-//# in memory save
+//# in memory save (임시방편 ㅜㅜ)
 app.set("mailCodeStore", {});
 
 //# middleware
@@ -24,6 +24,10 @@ app.use(
 //# routes
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
+
+app.get("/test", (req, res) => {
+  res.status(200).json({ message: "ok" });
+});
 
 app.get("/", (_, res) => {
   res.send("hellow world");

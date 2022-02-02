@@ -8,27 +8,31 @@ function LoginForm() {
     password: "",
   });
 
-  console.log(loginState);
-
   return (
-    <S.Form
+    <FormMedia
       className="flex-center-C"
       onSubmit={(e) => {
         e.preventDefault();
       }}
     >
       <div className="email flex-center">
-        <label htmlFor="email">이메일</label>
-        <input id="email" type="email" name="email" maxLength={25} />
+        <label htmlFor="loginEmail">이메일</label>
+        <input id="loginEmail" type="email" name="email" maxLength={25} />
       </div>
 
       <div className="password flex-center">
-        <label htmlFor="password">패스워드</label>
-        <input id="password" type="password" name="password" maxLength={20} autoComplete="on" />
+        <label htmlFor="loginPassword">패스워드</label>
+        <input
+          id="loginPassword"
+          type="password"
+          name="password"
+          maxLength={20}
+          autoComplete="on"
+        />
       </div>
 
       <button className="btn login-btn">로그인하기</button>
-    </S.Form>
+    </FormMedia>
   );
 }
 
@@ -68,5 +72,16 @@ const S = {
     }
   `,
 };
+
+const FormMedia = styled(S.Form)`
+  @media screen and (max-width: 1000px) {
+    .email,
+    .password {
+      label {
+        font-size: 1.7rem;
+      }
+    }
+  }
+`;
 
 export default LoginForm;

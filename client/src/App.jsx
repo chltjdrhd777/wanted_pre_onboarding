@@ -7,17 +7,21 @@ import { whiteTheme } from "globalCSS/whiteTheme";
 import { darkTheme } from "globalCSS/darkTheme";
 
 // CONTEXT
-import { CTX } from "utils/context/globalContext";
-import ModeToggle from "component/Toggle";
+import { useSelector, useDispatch } from "react-redux";
+import { changeMode } from "redux/slice/userSlice";
 
 // ROUTER
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "routes/Home";
 import Header from "component/Layout/Header";
 
+import ModeToggle from "component/Toggle";
+
 function App() {
-  const GlobalCTX = useContext(CTX);
-  const theme = GlobalCTX.mode === "white" ? whiteTheme : darkTheme;
+  const dispatch = useDispatch();
+  const mode = useSelector((state) => state.user.mode);
+
+  const theme = mode === "white" ? whiteTheme : darkTheme;
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,8 +38,12 @@ function App() {
       </Router>
 
       {/* 1st layer */}
-      <ModeToggle onClick={GlobalCTX.onHandleMode}>
-        <i className={GlobalCTX.mode === "dark" ? "fas fa-moon" : "fas fa-sun"}></i>
+      <ModeToggle
+        onClick={() => {
+          dispatch(changeMode());
+        }}
+      >
+        <i className={mode === "dark" ? "fas fa-moon" : "fas fa-sun"}></i>
       </ModeToggle>
 
       <div id="modal"></div>
