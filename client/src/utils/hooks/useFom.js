@@ -5,7 +5,6 @@ function useForm(initialValues) {
   const [submitState, setSubmitState] = useState({
     status: "",
     message: "",
-    success: false,
   });
 
   function onHanldeInput(key, value) {
@@ -24,7 +23,6 @@ function useForm(initialValues) {
     setSubmitState({
       status: "",
       message: "",
-      success: false,
     });
   }
 

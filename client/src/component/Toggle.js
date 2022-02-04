@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 function Toggle({ onClick, children }) {
   return (
-    <S.ToggleBox onClick={onClick}>
+    <ToggleBoxMedia onClick={onClick}>
       <S.ToggleContainer className="flex-center">{children}</S.ToggleContainer>
-    </S.ToggleBox>
+    </ToggleBoxMedia>
   );
 }
 
@@ -32,5 +32,13 @@ const S = {
     height: 100%;
   `,
 };
+
+const ToggleBoxMedia = styled(S.ToggleBox)`
+  @media screen and (max-width: 1000px) {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2rem;
+  }
+`;
 
 export default Toggle;

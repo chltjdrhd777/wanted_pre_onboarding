@@ -22,10 +22,19 @@ function RegisterForm({ isRegister }) {
     }
   }, [isRegister]);
 
+  useEffect(() => {
+    if (registerState.submitState.status === "ok") {
+      authCTX.hanldeShowMailCodeAuth();
+      authCTX.handleRegisterInfo(registerState.formState);
+    }
+  }, [registerState.submitState]);
+
   return (
     <FormMedia
       className="flex-center-C"
-      onSubmit={(e) => registerState.onHandleSubmit(e, registerLogic)}
+      onSubmit={(e) => {
+        registerState.onHandleSubmit(e, registerLogic);
+      }}
     >
       <div className="logo flex-center">
         <img src={Logo} alt="logo" />
@@ -87,7 +96,6 @@ function RegisterForm({ isRegister }) {
           "register-btn",
           registerState.submitState.status === "reject" && "rejected",
         ])}
-        onClick={() => authCTX.hanldeShowMailCodeAuth()}
       >
         {registerState.submitState.status === "reject"
           ? registerState.submitState.message

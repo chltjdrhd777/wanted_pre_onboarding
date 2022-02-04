@@ -1,12 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
-import { mailTest } from "redux/api/mailCode";
+import { AuthCTX } from "utils/context/AuthContext";
+import axios from "redux/api/axios";
+import { useQuery, useMutation } from "react-query";
+import { useDispatch } from "react-redux";
+import { setLogggedIn } from "redux/slice/userSlice";
+import { makeClassName } from "utils/helpers/makeClassName";
 
-function EmailCode() {
+function EmailCode({ onModalClose }) {
+  const { registerInfo } = useContext(AuthCTX);
   const [codeInput, setCodeInput] = useState("");
+  const [errorMeesage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
+
+  const emailCodeQuery = useQuery("emailCode", () => axios.post("/auth/signup", registerInfo));
+  const emailCodeConfirmMutation = useMutation((data) => axios.post("/auth/mailcode", data), {
+    onError: (err) => {
+      setErrorMessage(err.response.data.message);
+
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 1500);
+    },
+
+    onSuccess: (data) => {
+      dispatch(setLogggedIn());
+      onModalClose();
+    },
+  });
+
   function onHandleCodeSubmit() {
-    mailTest();
+    if (!!errorMeesage) {
+      return;
+    }
+
+    emailCodeConfirmMutation.mutate({ email: registerInfo.email, codeInput });
   }
+
+  console.log(emailCodeQuery, emailCodeConfirmMutation, errorMeesage);
 
   return (
     <EmailCodeContainer className="flex-center-C">
@@ -25,8 +56,11 @@ function EmailCode() {
           }}
         />
       </div>
-      <button className="btn code-btn" onClick={onHandleCodeSubmit}>
-        보내기
+      <button
+        className={makeClassName(["btn", "code-btn", errorMeesage && "onError"])}
+        onClick={onHandleCodeSubmit}
+      >
+        {!!errorMeesage ? errorMeesage : "보내기"}
       </button>
     </EmailCodeContainer>
   );
@@ -55,6 +89,10 @@ const EmailCodeContainer = styled.div`
 
   .code-btn {
     width: 50%;
+
+    &.onError {
+      background-color: ${({ theme }) => theme.colors.waringColor};
+    }
   }
 `;
 

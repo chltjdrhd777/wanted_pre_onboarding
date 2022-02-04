@@ -48,9 +48,10 @@ db.sequelize.sync({ force: false, alter: process.env.NODE_ENV === "dev" }).then(
 
     if (!testUser) {
       testUser = await User.create({
-        social: "kakao",
-        email: "test@kakao.com",
-        nickname: "kakao",
+        email: "guest@guest.com",
+        nickname: "guest",
+        password: "guest",
+        role: "admin",
         thumbImg:
           "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg",
       });

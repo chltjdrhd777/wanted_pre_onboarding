@@ -12,8 +12,6 @@ function AuthModal({ onClose }) {
   const [isRegister, setIsRegister] = useState(false);
   const authCTX = useContext(AuthCTX);
 
-  console.log(authCTX);
-
   return (
     <Modal onClose={onClose}>
       <LoginModalContainerMedia
@@ -29,7 +27,7 @@ function AuthModal({ onClose }) {
           </h2>
         </div>
 
-        <LoginForm />
+        <LoginForm onClose={onClose} />
 
         <div
           className="register-text"
@@ -41,11 +39,12 @@ function AuthModal({ onClose }) {
         </div>
       </LoginModalContainerMedia>
 
+      {/* Register part ------------------------*/}
       <RegisterModalContainerMedia
         className={makeClassName(["flex-center-C", isRegister && "showRegister"])}
       >
         {authCTX.showMailCodeAuth ? (
-          <EmailCodeAuth />
+          <EmailCodeAuth onModalClose={onClose} />
         ) : (
           <S.RegisterContainerLayout className="flex-center-C">
             <RegisterForm isRegister={isRegister} />
@@ -80,6 +79,7 @@ const S = {
     }
 
     .title {
+      margin-bottom: 2rem;
       & h2 > span {
         font-size: 3rem;
         font-weight: bold;

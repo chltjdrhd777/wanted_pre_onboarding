@@ -5,3 +5,7 @@
 \*vscode 단축키 설정기능
 
 \* window.matchMedia
+
+\* react query를 이용한 비동기 작업 분리 (redux 를 상태관리 툴로 사용해야지, API 통신용 툴로 만들지 맙시다! feat 우아한 형제들)
+
+\* 앞으로는 절대로 버튼 클릭이벤트의 처리를 form의 submit으로 하지 않는다. => 게스트 버튼도 이벤트를 form태그가 가져가버려서 불필요한 UI가 생성됨.

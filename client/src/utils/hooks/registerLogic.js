@@ -1,6 +1,8 @@
 import { emailValidator, passwordValidator } from "utils/helpers/validators";
+import axios from "redux/api/axios";
 
-export function registerLogic(formState, submitState, setSbumitState) {
+export async function registerLogic(formState, submitState, setSbumitState) {
+  //for reset
   const initialSubmitState = {
     status: "",
     message: "",
@@ -38,8 +40,15 @@ export function registerLogic(formState, submitState, setSbumitState) {
     return;
   }
 
-  setSbumitState({
-    status: "ok",
-    message: "",
-  });
+  //4. 유저 이미 있는지 체크
+  try {
+    await axios.post("/auth/user", { email: formState.email });
+
+    setSbumitState({
+      status: "ok",
+      message: "",
+    });
+  } catch (err) {
+    rejectMiddleware(err.response.data.message);
+  }
 }

@@ -1,23 +1,43 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
 import useForm from "utils/hooks/useFom";
+import { loginLogic } from "utils/hooks/loginLogic";
+import { makeClassName } from "utils/helpers/makeClassName";
+import { useDispatch } from "react-redux";
+import { setLogggedIn } from "redux/slice/userSlice";
+import axios from "redux/api/axios";
 
-function LoginForm() {
-  const loginState = useForm({
+function LoginForm({ onClose }) {
+  const { formState, submitState, onHandleSubmit, onHanldeInput } = useForm({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (submitState.status === "ok") {
+      dispatch(setLogggedIn());
+      onClose();
+    }
+  }, [submitState.status]);
 
   return (
     <FormMedia
       className="flex-center-C"
       onSubmit={(e) => {
-        e.preventDefault();
+        onHandleSubmit(e, loginLogic);
       }}
     >
       <div className="email flex-center">
         <label htmlFor="loginEmail">이메일</label>
-        <input id="loginEmail" type="email" name="email" maxLength={25} />
+        <input
+          id="loginEmail"
+          type="text"
+          name="email"
+          maxLength={30}
+          value={formState.email}
+          onChange={(e) => onHanldeInput(e.target.name, e.target.value)}
+        />
       </div>
 
       <div className="password flex-center">
@@ -28,10 +48,26 @@ function LoginForm() {
           name="password"
           maxLength={20}
           autoComplete="on"
+          value={formState.password}
+          onChange={(e) => onHanldeInput(e.target.name, e.target.value)}
         />
       </div>
 
-      <button className="btn login-btn">로그인하기</button>
+      <button
+        className={makeClassName(["btn", "login-btn", submitState.status === "reject" && "error"])}
+      >
+        {submitState.status === "reject" ? submitState.message : "로그인하기"}
+      </button>
+      <button
+        className="btn guest-btn"
+        onClick={async () => {
+          await axios.get("/auth/guest");
+          dispatch(setLogggedIn());
+          onClose();
+        }}
+      >
+        게스트로 시작하기
+      </button>
     </FormMedia>
   );
 }
@@ -42,6 +78,7 @@ const S = {
     height: 20%;
     gap: 0.5rem;
     margin-top: 2rem;
+    margin-bottom: 2rem;
 
     & .email,
     .password {
@@ -69,6 +106,15 @@ const S = {
     & .login-btn {
       width: 50%;
       margin-top: 2rem;
+
+      &.error {
+        background-color: ${({ theme }) => theme.colors.waringColor};
+      }
+    }
+
+    & .guest-btn {
+      width: 50%;
+      background-color: ${({ theme }) => theme.colors.grayFour};
     }
   `,
 };

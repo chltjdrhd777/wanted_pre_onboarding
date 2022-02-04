@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
         primaryKey: true,
         unique: true,
       },
+      role: {
+        type: DataTypes.STRING,
+        defaultValue: "user",
+      },
       email: {
         type: DataTypes.STRING,
       },
@@ -22,15 +26,11 @@ module.exports = (sequelize, DataTypes, Sequelize) => {
       },
       nickname: {
         type: DataTypes.STRING,
-        allowNull: true,
       },
       thumbImg: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
-      refreshToken: {
-        type: DataTypes.STRING,
-        allowNull: true,
+        defaultValue:
+          "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg",
       },
     },
     {

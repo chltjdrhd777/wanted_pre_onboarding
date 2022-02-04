@@ -1,23 +1,84 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import ProfileTab from "component/Setting/Tab_Profile";
+import DocsTab from "component/Setting/Tab_Docs";
+import AccountTab from "component/Setting/Tab_Account";
+import ExtraTab from "component/Setting/Tab_Extra";
 
 function Tab() {
-  //todo 여러개 만들고 내부 "아직 준비중입니다!"
+  const [tab, setTab] = useState("profile");
+  const tabUlRef = useRef(null);
+
+  function tabActivate({ target, currentTarget }) {
+    if (!target.matches("#setting-tabUl > li > span")) {
+      // 해당 요소로 판단되지 않으면 이벤트 발생시키지 않는다.
+      return;
+    }
+
+    console.log(currentTarget);
+
+    setTab(target.classList[0]);
+
+    [...tabUlRef.current?.children].forEach((child) => {
+      child.classList.toggle("active", child.children[0].classList[0] === target.classList[0]);
+    });
+  }
+
   return (
-    <S.TabUl className="flex-center">
-      <li>
-        <Link to="/mans">남성복</Link>
-      </li>
-      <li>
-        <Link to="/females">여성복</Link>
-      </li>
-    </S.TabUl>
+    <TabBoxMedia>
+      <h2 className="title">설정</h2>
+
+      <S.TabUl id="setting-tabUl" ref={tabUlRef} onClick={tabActivate}>
+        <li className="active">
+          <span className="profile">프로필</span>
+        </li>
+        <li>
+          <span className="docs">게시글</span>
+        </li>
+        <li>
+          <span className="account">계정관리</span>
+        </li>
+        <li>
+          <span className="extra">기타</span>
+        </li>
+      </S.TabUl>
+
+      {tab === "profile" && <ProfileTab />}
+      {tab === "docs" && <DocsTab />}
+      {tab === "account" && <AccountTab />}
+      {tab === "extra" && <ExtraTab />}
+    </TabBoxMedia>
   );
 }
 
 const S = {
-  TabUl: styled.ul``,
+  TabBox: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    & h2[class~="title"] {
+      width: 100%;
+      border-bottom: 1px solid gray;
+      padding-bottom: 1rem;
+    }
+  `,
+  TabUl: styled.ul`
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+
+    & li {
+      cursor: pointer;
+
+      &.active {
+        border-bottom: 2px solid
+          ${({ theme }) => (theme.mode === "dark" ? theme.colors.grayOne : theme.colors.pointBlue)};
+      }
+    }
+  `,
 };
+
+const TabBoxMedia = styled(S.TabBox)``;
 
 export default Tab;
