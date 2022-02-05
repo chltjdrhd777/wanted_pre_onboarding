@@ -23,11 +23,9 @@ app.use(
 
 //# routes
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 app.use("/auth", authRoutes);
-
-app.get("/test", (req, res) => {
-  res.status(200).json({ message: "ok" });
-});
+app.use("/user", userRoutes);
 
 app.get("/", (_, res) => {
   res.send("hellow world");

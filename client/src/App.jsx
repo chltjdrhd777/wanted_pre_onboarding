@@ -1,5 +1,5 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 // THEME
 import GlobalCSS from "globalCSS/global";
@@ -32,6 +32,8 @@ function App() {
       },
     },
   });
+
+  // const {} = useQuery("")
 
   const theme = mode === "white" ? whiteTheme : darkTheme;
 

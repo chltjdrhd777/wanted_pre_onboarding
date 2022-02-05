@@ -14,7 +14,7 @@ const S = {
   SettingPageContainer: styled.div`
     width: 80%;
     height: 90%;
-    min-height: 50rem;
+    min-height: 60rem;
     background-color: ${({ theme }) => (theme.mode === "dark" ? theme.colors.blackOne : "white")};
     margin: 0 auto;
     padding: 2rem;

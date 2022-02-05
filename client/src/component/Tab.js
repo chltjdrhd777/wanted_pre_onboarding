@@ -15,12 +15,10 @@ function Tab() {
       return;
     }
 
-    console.log(currentTarget);
-
-    setTab(target.classList[0]);
+    setTab(target.parentElement.classList[0]);
 
     [...tabUlRef.current?.children].forEach((child) => {
-      child.classList.toggle("active", child.children[0].classList[0] === target.classList[0]);
+      child.classList.toggle("active", child.classList[0] === target.parentElement.classList[0]);
     });
   }
 
@@ -29,17 +27,17 @@ function Tab() {
       <h2 className="title">설정</h2>
 
       <S.TabUl id="setting-tabUl" ref={tabUlRef} onClick={tabActivate}>
-        <li className="active">
-          <span className="profile">프로필</span>
+        <li className="profile active">
+          <span>프로필</span>
         </li>
-        <li>
-          <span className="docs">게시글</span>
+        <li className="docs">
+          <span>게시글</span>
         </li>
-        <li>
-          <span className="account">계정관리</span>
+        <li className="account">
+          <span>계정관리</span>
         </li>
-        <li>
-          <span className="extra">기타</span>
+        <li className="extra">
+          <span>기타</span>
         </li>
       </S.TabUl>
 
