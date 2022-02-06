@@ -6,7 +6,7 @@ const express = require("express");
 
 const app = express();
 
-//# in memory save (임시방편 ㅜㅜ)
+//# in memory save (임시방편 ㅜㅜ 나중에 꼭 redis로 바꾸자)
 app.set("mailCodeStore", {});
 
 //# middleware
@@ -24,8 +24,10 @@ app.use(
 //# routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const tagRoutes = require("./routes/tag");
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/tag", tagRoutes);
 
 app.get("/", (_, res) => {
   res.send("hellow world");

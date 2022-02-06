@@ -21,7 +21,7 @@ function ProfileTab() {
       refetchOnMount: true,
     }
   );
-  console.log(rest);
+
   const userInfoMutation = useMutation(
     (data) => {
       return axios.post("/user", data);

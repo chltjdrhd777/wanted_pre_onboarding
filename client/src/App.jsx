@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "component/Layout/Header";
 import Home from "routes/Home";
 import Setting from "routes/Setting";
+import Board from "routes/Board";
 
 import ModeToggle from "component/Toggle";
 
@@ -49,6 +50,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/setting" element={<Setting />} />
+              <Route path="/board/*" element={<Board />} />
             </Routes>
           </Header>
         </Router>

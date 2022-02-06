@@ -7,6 +7,7 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "dev";
 const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
+const { testUser, testTags } = require("../utils/INITIALIZATION");
 
 require("dotenv").config();
 
@@ -31,7 +32,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //! Relations/////////////////////////////////////////////////////////
-const { User } = db;
+const { User, Tag } = db;
 
 //@ 1:1
 
@@ -43,22 +44,9 @@ const { User } = db;
 db.sequelize.sync({ force: false, alter: process.env.NODE_ENV === "dev" }).then(() => {
   console.log("sequelize activated");
 
-  async function seed() {
-    let testUser = await User.findOne({});
+  testUser(User);
 
-    if (!testUser) {
-      testUser = await User.create({
-        email: "guest@guest.com",
-        nickname: "guest",
-        password: "guest",
-        role: "admin",
-        thumbImg:
-          "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_110x110.jpg",
-      });
-    }
-  }
-
-  seed();
+  testTags(Tag);
 });
 
 module.exports = db;

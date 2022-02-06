@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components/macro";
-import SearchForm from "./Header_Search";
+import SearchForm from "component/AutoComplete";
 import Logo from "assets/imgs/logo/logo.png";
 import { useNavigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
@@ -91,33 +91,49 @@ function Header({ children }) {
               )}
 
               <li>
-                <Link to="/health" state={{ prevPath: location.pathname }}>
+                <Link to="/board/health" state={{ prevPath: location.pathname }}>
                   운동
                 </Link>
               </li>
               <li>
-                <Link to="/food">음식</Link>
+                <Link to="/board/food" state={{ prevPath: location.pathname }}>
+                  음식
+                </Link>
               </li>
               <li>
-                <Link to="/art">예술</Link>
+                <Link to="/board/art" state={{ prevPath: location.pathname }}>
+                  예술
+                </Link>
               </li>
               <li>
-                <Link to="/land">부동산</Link>
+                <Link to="/board/land" state={{ prevPath: location.pathname }}>
+                  부동산
+                </Link>
               </li>
               <li>
-                <Link to="/laws">법률</Link>
+                <Link to="/board/laws" state={{ prevPath: location.pathname }}>
+                  법률
+                </Link>
               </li>
               <li>
-                <Link to="/animation">애니메이션/만화</Link>
+                <Link to="/board/animation" state={{ prevPath: location.pathname }}>
+                  애니메이션/만화
+                </Link>
               </li>
               <li>
-                <Link to="/languages">언어</Link>
+                <Link to="/board/languages" state={{ prevPath: location.pathname }}>
+                  언어
+                </Link>
               </li>
               <li>
-                <Link to="/travel">여행</Link>
+                <Link to="/board/travel" state={{ prevPath: location.pathname }}>
+                  여행
+                </Link>
               </li>
               <li>
-                <Link to="/animals">동물</Link>
+                <Link to="/board/animals" state={{ prevPath: location.pathname }}>
+                  동물
+                </Link>
               </li>
             </S.CategoryUl>
           </S.HeaderContainer>

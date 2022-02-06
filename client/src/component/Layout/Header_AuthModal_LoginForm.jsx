@@ -8,7 +8,7 @@ import { setLogggedIn } from "redux/slice/userSlice";
 import axios from "redux/api/axios";
 
 function LoginForm({ onClose }) {
-  const { formState, submitState, onHandleSubmit, onHanldeInput } = useForm({
+  const { formState, submitState, onHandleSubmit, onHanldeInput, onResetFormState } = useForm({
     email: "",
     password: "",
   });
@@ -19,6 +19,8 @@ function LoginForm({ onClose }) {
       dispatch(setLogggedIn());
       onClose();
     }
+
+    return () => onResetFormState();
   }, [submitState.status]);
 
   return (

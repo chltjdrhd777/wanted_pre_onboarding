@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-function Index() {
-  return <HomeMain className="flex-center-C">hompage</HomeMain>;
+function HomPage() {
+  return <S.HomePageContainer className="flex-center-C">hompage</S.HomePageContainer>;
 }
 
-const HomeMain = styled.main`
-  width: 100%;
-  height: 100%;
-  color: ${({ theme }) => theme.colors.fontColor};
-`;
+const S = {
+  HomePageContainer: styled.main`
+    width: 100%;
+    height: 100%;
+    color: ${({ theme }) => theme.colors.fontColor};
+  `,
+};
 
-export default Index;
+export default HomPage;
