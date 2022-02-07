@@ -13,7 +13,7 @@ function SettingPage() {
 const S = {
   SettingPageContainer: styled.div`
     width: 80%;
-    height: 90%;
+    height: 100%;
 
     background-color: ${({ theme }) => (theme.mode === "dark" ? theme.colors.blackOne : "white")};
     margin: 0 auto;

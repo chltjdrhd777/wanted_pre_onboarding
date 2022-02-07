@@ -246,13 +246,13 @@ const S = {
 
   ChildMain: styled.main`
     width: 100vw;
-    height: calc(100vh - 12rem);
+    min-height: calc(100vh - 12rem);
     transform: translateY(12rem);
     background-color: ${({ theme }) => theme.colors.background};
     transition: background-color 0.3s ease-in;
 
     @media screen and (max-width: 1000px) {
-      height: calc(100vh - 7rem);
+      min-height: calc(100vh - 7rem);
       transform: translateY(7rem);
     }
   `,

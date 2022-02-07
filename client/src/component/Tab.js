@@ -54,6 +54,7 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    min-height: 70rem;
 
     & h2[class~="title"] {
       width: 100%;
