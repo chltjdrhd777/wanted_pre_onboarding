@@ -18,6 +18,21 @@ function Tag() {
     }
   }
 
+  function onHandleChange(e) {
+    const lastLetter = e.target.value[e.target.value.length - 1];
+
+    if (lastLetter === ",") {
+      if (inputValue) {
+        setTags([...tags, inputValue]);
+        setInputValue("");
+      } else if (!inputValue) {
+        return;
+      }
+    } else {
+      setInputValue(e.target.value);
+    }
+  }
+
   return (
     <TagBox>
       {tags?.map((each, i) => (
@@ -34,20 +49,7 @@ function Tag() {
       <input
         placeholder="태그를 입력하세요"
         value={inputValue}
-        onChange={(e) => {
-          const lastLetter = e.target.value[e.target.value.length - 1];
-
-          if (lastLetter === ",") {
-            if (inputValue) {
-              setTags([...tags, inputValue]);
-              setInputValue("");
-            } else if (!inputValue) {
-              return;
-            }
-          } else {
-            setInputValue(e.target.value);
-          }
-        }}
+        onChange={onHandleChange}
         onBlur={() => {
           setInputValue("");
         }}

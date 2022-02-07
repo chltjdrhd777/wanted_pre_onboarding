@@ -13,14 +13,13 @@ function LoginForm({ onClose }) {
     password: "",
   });
   const dispatch = useDispatch();
+  console.log(submitState, formState);
 
   useEffect(() => {
     if (submitState.status === "ok") {
       dispatch(setLogggedIn());
       onClose();
     }
-
-    return () => onResetFormState();
   }, [submitState.status]);
 
   return (

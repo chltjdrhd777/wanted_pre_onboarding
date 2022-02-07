@@ -12,7 +12,6 @@ function useForm(initialValues) {
       return { ...prev, [key]: value };
     });
   }
-
   function onHandleSubmit(e, helper) {
     e.preventDefault();
     helper(formState, submitState, setSubmitState);
