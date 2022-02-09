@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Tag from "component/Tag";
+import axios from "redux/api/axios";
 
 function Main({ objData, stringData }) {
   //@ click to edit sample
@@ -21,6 +22,71 @@ function Main({ objData, stringData }) {
     currentIdx: 0,
     content: ["첫번째", "두번째", "세번째", "네번째"],
   });
+
+  //@ auto complete sample
+  const dataList = [
+    "가람",
+    "나리",
+    "개호",
+    "구리",
+    "청동",
+    "오드라",
+    "이리 오너라",
+    "abw21",
+    "asfwa#3351",
+    "ashe",
+    "구미 삼동로 21-5",
+    "구구단",
+    "고성",
+    "고루마",
+    "고고이이",
+    "고래",
+    "고무",
+    "가평24시간",
+    "가지 치기",
+    "기리 가리",
+    "와이 키키",
+    "수메르 단",
+    "cat",
+    "마마무",
+    "교사",
+    "규정",
+    "구각",
+    "기술",
+    "계기",
+    "기업",
+    "그림",
+    "게살",
+    "기계",
+    "갸뜩이나",
+    "거위",
+    "겨울",
+  ];
+
+  const [autoCompleteInput, setAutoCompoleteInput] = useState("");
+
+  const initialState = {
+    focused: null,
+    list: [],
+  };
+
+  const [filteredList, setFilteredList] = useState({
+    focused: null,
+    list: [],
+  });
+
+  console.log(filteredList);
+
+  useEffect(() => {
+    if (autoCompleteInput) {
+      const filtering = dataList.filter((data) => data.includes(autoCompleteInput));
+      setFilteredList({ focused: null, list: filtering });
+    } else {
+      setFilteredList(initialState);
+    }
+  }, [autoCompleteInput]);
+
+  function onHandleKeyDown(e) {}
 
   return (
     <HomeBoxMedia>
@@ -107,6 +173,29 @@ function Main({ objData, stringData }) {
 
         <S.AutoCompleteBox>
           <p>상단 게스트 로그인 후 헤더 검색창 </p>
+          <span>❤️ sample</span>
+
+          <div className="auto-complete-text">
+            <input
+              type="text"
+              value={autoCompleteInput}
+              placeholder="가~기 사이로 검색해보세요!"
+              onChange={(e) => setAutoCompoleteInput(e.target.value)}
+              onKeyDown={onHandleKeyDown}
+            />
+
+            <ul className={`auto-complete-ul${!filteredList.list.length ? " hide" : ""}`}>
+              {filteredList.list.map((keyword) => (
+                <li key={keyword}>
+                  {keyword.split("").map((letter, i) => (
+                    <span key={i} className={autoCompleteInput.includes(letter) ? "highlight" : ""}>
+                      {letter}
+                    </span>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          </div>
         </S.AutoCompleteBox>
       </div>
     </HomeBoxMedia>
@@ -241,6 +330,38 @@ const S = {
   AutoCompleteBox: styled.div`
     flex: 1;
     word-break: keep-all;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 30rem;
+
+    & .auto-complete-text {
+      padding: 2rem;
+
+      & input {
+        width: 100%;
+        height: 3rem;
+        padding: 0.5rem;
+      }
+
+      & ul.auto-complete-ul {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid gray;
+
+        &.hide {
+          display: none;
+        }
+
+        & li > span.highlight {
+          font-weight: bold;
+          color: ${({ theme }) => theme.colors.pointCarrot};
+        }
+      }
+    }
   `,
 };
 
@@ -273,6 +394,28 @@ const HomeBoxMedia = styled(S.HomeBox)`
 
       & p {
         font-size: 1.2rem;
+      }
+    }
+
+    ${S.AutoCompleteBox} {
+      & .auto-complete-text {
+        & ul.auto-complete-ul {
+          & li {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    ${S.AutoCompleteBox} {
+      & .auto-complete-text {
+        & ul.auto-complete-ul {
+          & li {
+            font-size: 1rem;
+          }
+        }
       }
     }
   }

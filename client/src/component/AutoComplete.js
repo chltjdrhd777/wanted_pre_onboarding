@@ -18,7 +18,7 @@ function Search() {
 
   const { refetch } = useQuery(
     ["tag"],
-    () => axios.get(`/tag/${inputValue.toLowerCase().trim() || "undefined"}`),
+    () => axios.get(`/tag/${inputValue.toLowerCase() || "undefined"}`),
     {
       enabled: false,
       onSuccess: (data) => {
@@ -131,10 +131,6 @@ function Search() {
           placeholder={
             !isLogin ? "먼저 게스트나 일반 로그인을 해주세요!" : "가 ~ 라를 검색해보세요!"
           }
-          // onBlur={() => {
-          //   setInputValue("");
-          //   setFilteredTags([]);
-          // }}
           onKeyDown={onHandleOnKeyDown}
           disabled={!isLogin}
         />

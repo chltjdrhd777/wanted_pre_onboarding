@@ -12,6 +12,7 @@ function Tab() {
   function tabActivate({ target, currentTarget }) {
     if (!target.matches("#setting-tabUl > li > span")) {
       // 해당 요소로 판단되지 않으면 이벤트 발생시키지 않는다.
+      // 이벤트 버블링을 통해 자식이벤트를 통합관리한다.
       return;
     }
 

@@ -12,7 +12,12 @@ import { AuthCTXWrapper } from "utils/context/AuthContext";
 import { useSelector, useDispatch } from "react-redux";
 import UserDropdown from "./Header_UserIcon_Drop";
 
+import axios from "redux/api/axios";
+import { useQuery } from "react-query";
+import { setLogggedIn } from "redux/slice/userSlice";
+
 function Header({ children }) {
+  const dispatch = useDispatch();
   const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -21,6 +26,14 @@ function Header({ children }) {
   const isUnderDesktop = useMediaQuery("(max-width: 1000px)");
   const categoryUlRef = useRef(null);
   const { isLogin } = useSelector((state) => state.user);
+
+  //@ 첫 접속때 토큰이 유효하지 않으면 로그인 무효화
+  const checkTokens = useQuery(["check-tokens"], () => axios.get("/auth/tokenlife"), {
+    retry: false,
+    onError: (error) => {
+      dispatch(setLogggedIn());
+    },
+  });
 
   useEffect(() => {
     if (!isUnderDesktop) {

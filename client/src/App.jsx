@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 // THEME
@@ -33,8 +33,6 @@ function App() {
       },
     },
   });
-
-  // const {} = useQuery("")
 
   const theme = mode === "white" ? whiteTheme : darkTheme;
 
