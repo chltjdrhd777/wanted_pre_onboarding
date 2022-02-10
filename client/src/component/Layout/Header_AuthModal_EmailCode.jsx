@@ -24,7 +24,8 @@ function EmailCode({ onModalClose }) {
     },
 
     onSuccess: (data) => {
-      dispatch(setLogggedIn());
+      console.log(data);
+      dispatch(setLogggedIn(true));
       onModalClose();
     },
   });
