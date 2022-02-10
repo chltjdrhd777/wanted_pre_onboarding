@@ -31,7 +31,7 @@ function Header({ children }) {
   const checkTokens = useQuery(["check-tokens"], () => axios.get("/auth/tokenlife"), {
     retry: false,
     onError: (error) => {
-      dispatch(setLogggedIn());
+      dispatch(setLogggedIn(false));
     },
   });
 

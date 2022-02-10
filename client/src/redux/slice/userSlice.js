@@ -16,11 +16,15 @@ export const userSlice = createSlice({
         state.mode = "white";
       }
     },
-    setLogggedIn: (state) => {
-      if (state.isLogin) {
-        state.isLogin = false;
+    setLogggedIn: (state, { payload }) => {
+      if (payload !== null || payload !== undefined) {
+        state.isLogin = payload;
       } else {
-        state.isLogin = true;
+        if (state.isLogin) {
+          state.isLogin = false;
+        } else {
+          state.isLogin = true;
+        }
       }
     },
   },

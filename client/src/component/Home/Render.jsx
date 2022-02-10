@@ -63,6 +63,8 @@ function Main({ objData, stringData }) {
     "겨울",
   ];
 
+  const filteredInputRef = useRef(null);
+
   const [autoCompleteInput, setAutoCompoleteInput] = useState("");
 
   const initialState = {
@@ -75,7 +77,21 @@ function Main({ objData, stringData }) {
     list: [],
   });
 
-  console.log(filteredList);
+  function filteredListBlurListener(e) {
+    const targetBoundary = e.target.closest(".auto-complete-text");
+
+    if (!targetBoundary) {
+      //@ 배치 업데이트를 통해 한번만 리렌더링 된다.
+      setAutoCompoleteInput("");
+      setFilteredList(initialState);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("click", filteredListBlurListener);
+
+    return () => document.removeEventListener("click", filteredListBlurListener);
+  }, []);
 
   useEffect(() => {
     if (autoCompleteInput) {
@@ -86,7 +102,45 @@ function Main({ objData, stringData }) {
     }
   }, [autoCompleteInput]);
 
-  function onHandleKeyDown(e) {}
+  function onHandleKeyDown(e) {
+    if (!filteredList.list.length) {
+      return;
+    }
+
+    if (e.key === "ArrowUp") {
+      if (filteredList.focused === null) {
+        setFilteredList({ ...filteredList, focused: 0 });
+      } else if (filteredList.focused > 0) {
+        setFilteredList({ ...filteredList, focused: --filteredList.focused });
+      }
+    }
+
+    if (e.key === "ArrowDown") {
+      if (filteredList.focused === null) {
+        setFilteredList({ ...filteredList, focused: 0 });
+      } else if (filteredList.focused < filteredList.list.length - 1) {
+        setFilteredList({ ...filteredList, focused: ++filteredList.focused });
+      }
+    }
+
+    if (e.key === "Enter") {
+      if (filteredList.focused === null) {
+        alert(
+          `현재 focusedIdx는 ${filteredList.focused}이고 값은 ${
+            filteredList.list[filteredList.focused]
+          }이다`
+        );
+      } else {
+        alert(
+          `현재 focusedIdx는 ${filteredList.focused}이고 값은 ${
+            filteredList.list[filteredList.focused]
+          }이다. 따라서 useNaviate을 통해 이동시키면 된다. (ex, navigate("docs/${
+            filteredList.list[filteredList.focused]
+          }"))`
+        );
+      }
+    }
+  }
 
   return (
     <HomeBoxMedia>
@@ -178,6 +232,7 @@ function Main({ objData, stringData }) {
           <div className="auto-complete-text">
             <input
               type="text"
+              ref={filteredInputRef}
               value={autoCompleteInput}
               placeholder="가~기 사이로 검색해보세요!"
               onChange={(e) => setAutoCompoleteInput(e.target.value)}
@@ -185,8 +240,14 @@ function Main({ objData, stringData }) {
             />
 
             <ul className={`auto-complete-ul${!filteredList.list.length ? " hide" : ""}`}>
-              {filteredList.list.map((keyword) => (
-                <li key={keyword}>
+              {filteredList.list.map((keyword, keywordIdx) => (
+                <li
+                  key={keyword}
+                  className={filteredList.focused === keywordIdx ? "focused" : ""}
+                  onClick={() => {
+                    alert("자식을 Link로 두고 이동하게 한다");
+                  }}
+                >
                   {keyword.split("").map((letter, i) => (
                     <span key={i} className={autoCompleteInput.includes(letter) ? "highlight" : ""}>
                       {letter}
@@ -354,6 +415,14 @@ const S = {
 
         &.hide {
           display: none;
+        }
+
+        & li {
+          width: fit-content;
+          cursor: pointer;
+          &.focused {
+            text-decoration: underline;
+          }
         }
 
         & li > span.highlight {
