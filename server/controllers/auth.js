@@ -31,8 +31,10 @@ module.exports = {
       let transporter = nodemailer.createTransport({
         service: "Naver",
         host: "smtp.naver.com",
-        secure: process.env.NODE_ENV !== "dev",
-        port: process.env.NODE_ENV !== "dev" ? 465 : 587,
+        // secure: process.env.NODE_ENV !== "dev",
+        // port: process.env.NODE_ENV !== "dev" ? 465 : 587,
+        secure: false,
+        port: 465,
         auth: {
           user: process.env.SenderEmail,
           pass: process.env.SenderPassword,
@@ -76,12 +78,12 @@ module.exports = {
     const accessToken = genAccess({ email });
     const refreshToken = genRefresh({ email });
     res.cookie("accessToken", accessToken, {
-      secure: process.env.NODE_ENV === "prod",
+      // secure: process.env.NODE_ENV === "prod",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 1, //1d
     });
     res.cookie("refreshToken", refreshToken, {
-      secure: process.env.NODE_ENV === "prod",
+      // secure: process.env.NODE_ENV === "prod",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, //30d
     });
@@ -110,12 +112,12 @@ module.exports = {
       const accessToken = genAccess({ email });
       const refreshToken = genRefresh({ email });
       res.cookie("accessToken", accessToken, {
-        secure: process.env.NODE_ENV === "prod",
+        // secure: process.env.NODE_ENV === "prod",
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 1, //1d
       });
       res.cookie("refreshToken", refreshToken, {
-        secure: process.env.NODE_ENV === "prod",
+        // secure: process.env.NODE_ENV === "prod",
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 30, //30d
       });
@@ -133,12 +135,12 @@ module.exports = {
     const accessToken = genAccess({ email: "guest@guest.com" });
     const refreshToken = genRefresh({ email: "guest@guest.com" });
     res.cookie("accessToken", accessToken, {
-      secure: process.env.NODE_ENV === "prod",
+      // secure: process.env.NODE_ENV === "prod",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 1, //1d
     });
     res.cookie("refreshToken", refreshToken, {
-      secure: process.env.NODE_ENV === "prod",
+      // secure: process.env.NODE_ENV === "prod",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, //30d
     });

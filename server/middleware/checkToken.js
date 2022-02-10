@@ -45,7 +45,10 @@ module.exports = {
         }
 
         const accessToken = genAccess({ email });
-        res.cookie("accessToken", accessToken);
+        res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+          maxAge: 1000 * 60 * 60 * 24 * 30, //30d
+        });
         req.user = user;
         next();
         return;
