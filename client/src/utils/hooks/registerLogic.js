@@ -34,13 +34,19 @@ export async function registerLogic(formState, submitState, setSbumitState) {
     return;
   }
 
-  //3. password check
+  //3. password length
+  if (formState.password.length < 5) {
+    rejectMiddleware("비밀번호는 5자리 이상입니다!");
+    return;
+  }
+
+  //5. password check
   if (!passwordValidator(formState.password, formState.passwordConfirm)) {
     rejectMiddleware("패스워드가 다릅니다!");
     return;
   }
 
-  //4. 유저 이미 있는지 체크
+  //6. 유저 이미 있는지 체크
   try {
     await axios.post("/auth/user", { email: formState.email });
 

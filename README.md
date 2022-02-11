@@ -1,3 +1,8 @@
+> 임시 배포 주소
+> [배포링크](http://component-submit.s3-website.ap-northeast-2.amazonaws.com/)
+> https 연결이 되지 않아 토큰 전송이 막혀있어, 메일회원가입 테스팅 이외의 기능은 제대로 실행되지 않습니다.
+> 메인 컴포넌트 기능구현은 홈페이지의 Overview에 나열되어 있습니다!
+
 ## 🚴🏼‍♂️ Modal
 
 ---

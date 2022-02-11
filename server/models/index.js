@@ -41,12 +41,12 @@ const { User, Tag } = db;
 //@ N:M
 
 //% initiation //////////////////////////////////////////////////////
-// db.sequelize.sync({ force: false, alter: process.env.NODE_ENV === "dev" }).then(() => {
-//   console.log("sequelize activated");
+db.sequelize.sync({ force: false, alter: process.env.NODE_ENV === "dev" }).then(() => {
+  console.log("sequelize activated");
 
-//   testUser(User);
+  testUser(User);
 
-//   testTags(Tag);
-// });
+  testTags(Tag);
+});
 
 module.exports = db;

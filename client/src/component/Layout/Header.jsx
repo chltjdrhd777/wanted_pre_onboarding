@@ -14,7 +14,7 @@ import UserDropdown from "./Header_UserIcon_Drop";
 
 import axios from "redux/api/axios";
 import { useQuery } from "react-query";
-import { setLogggedIn } from "redux/slice/userSlice";
+import { setLogggedIn, setUserInfo } from "redux/slice/userSlice";
 
 function Header({ children }) {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ function Header({ children }) {
     retry: false,
     onError: (error) => {
       dispatch(setLogggedIn(false));
+      dispatch(setUserInfo({}));
     },
   });
 

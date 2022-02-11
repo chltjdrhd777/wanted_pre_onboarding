@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mode: "white",
   isLogin: false,
+  userInfo: {},
 };
 
 export const userSlice = createSlice({
@@ -17,19 +18,14 @@ export const userSlice = createSlice({
       }
     },
     setLogggedIn: (state, { payload }) => {
-      if (payload !== null || payload !== undefined) {
-        state.isLogin = payload;
-      } else {
-        if (state.isLogin) {
-          state.isLogin = false;
-        } else {
-          state.isLogin = true;
-        }
-      }
+      state.isLogin = payload;
+    },
+    setUserInfo: (state, { payload }) => {
+      state.userInfo = payload;
     },
   },
 });
 
-export const { changeMode, setLogggedIn } = userSlice.actions;
+export const { changeMode, setLogggedIn, setUserInfo } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,7 +4,7 @@ import useForm from "utils/hooks/useFom";
 import { loginLogic } from "utils/hooks/loginLogic";
 import { makeClassName } from "utils/helpers/makeClassName";
 import { useDispatch } from "react-redux";
-import { setLogggedIn } from "redux/slice/userSlice";
+import { setLogggedIn, setUserInfo } from "redux/slice/userSlice";
 import axios from "redux/api/axios";
 
 function LoginForm({ onClose }) {
@@ -17,7 +17,8 @@ function LoginForm({ onClose }) {
 
   useEffect(() => {
     if (submitState.status === "ok") {
-      dispatch(setLogggedIn());
+      dispatch(setLogggedIn(true));
+      dispatch(setUserInfo(submitState.userInfo.user));
       onClose();
     }
   }, [submitState.status]);
@@ -63,7 +64,7 @@ function LoginForm({ onClose }) {
         className="btn guest-btn"
         onClick={async () => {
           await axios.get("/auth/guest");
-          dispatch(setLogggedIn());
+          dispatch(setLogggedIn(true));
           onClose();
         }}
       >

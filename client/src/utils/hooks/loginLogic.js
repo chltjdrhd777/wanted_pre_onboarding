@@ -36,10 +36,12 @@ export async function loginLogic(formState, submitState, setSbumitState) {
 
   //3. get response
   try {
-    await axios.post("/auth/signin", formState);
+    const res = await axios.post("/auth/signin", formState);
+    console.log(res);
     setSbumitState({
       status: "ok",
       message: "",
+      userInfo: res.data,
     });
   } catch (err) {
     rejectMiddleware(err.response.data.message);
