@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
       padding: 0;
       box-sizing: border-box;
   }
-
+  
   html {
       font-size: 62.5%;
       scroll-behavior: smooth;
@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
       -ms-user-select: none;     
       -o-user-select: none;
   }
-  
+
   a {
       text-decoration: none;
       color:black;

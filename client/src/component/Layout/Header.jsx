@@ -36,6 +36,7 @@ function Header({ children }) {
     },
   });
 
+  //@ useEffect
   useEffect(() => {
     if (!isUnderDesktop) {
       categoryUlRef.current?.classList.remove("showList");
@@ -93,7 +94,7 @@ function Header({ children }) {
               )}
             </S.Headers>
 
-            <S.CategoryUl ref={categoryUlRef}>
+            <S.CategoryUl ref={categoryUlRef} id="header-category-bar">
               {isUnderDesktop && <img src={Logo} alt="logo" className="sidemenu-logo" />}
               {isUnderDesktop && (
                 <i
@@ -105,47 +106,50 @@ function Header({ children }) {
               )}
 
               <li>
-                <Link to="/board/health" state={{ prevPath: location.pathname }}>
+                <Link to="/board/health" state={{ prevPath: location.pathname, title: "운동" }}>
                   운동
                 </Link>
               </li>
               <li>
-                <Link to="/board/food" state={{ prevPath: location.pathname }}>
+                <Link to="/board/food" state={{ prevPath: location.pathname, title: "음식" }}>
                   음식
                 </Link>
               </li>
               <li>
-                <Link to="/board/art" state={{ prevPath: location.pathname }}>
+                <Link to="/board/art" state={{ prevPath: location.pathname, title: "예술" }}>
                   예술
                 </Link>
               </li>
               <li>
-                <Link to="/board/land" state={{ prevPath: location.pathname }}>
+                <Link to="/board/land" state={{ prevPath: location.pathname, title: "부동산" }}>
                   부동산
                 </Link>
               </li>
               <li>
-                <Link to="/board/laws" state={{ prevPath: location.pathname }}>
+                <Link to="/board/laws" state={{ prevPath: location.pathname, title: "법률" }}>
                   법률
                 </Link>
               </li>
               <li>
-                <Link to="/board/animation" state={{ prevPath: location.pathname }}>
+                <Link
+                  to="/board/animation"
+                  state={{ prevPath: location.pathname, title: "애니메이션/만화" }}
+                >
                   애니메이션/만화
                 </Link>
               </li>
               <li>
-                <Link to="/board/languages" state={{ prevPath: location.pathname }}>
+                <Link to="/board/languages" state={{ prevPath: location.pathname, title: "언어" }}>
                   언어
                 </Link>
               </li>
               <li>
-                <Link to="/board/travel" state={{ prevPath: location.pathname }}>
+                <Link to="/board/travel" state={{ prevPath: location.pathname, title: "여행" }}>
                   여행
                 </Link>
               </li>
               <li>
-                <Link to="/board/animals" state={{ prevPath: location.pathname }}>
+                <Link to="/board/animals" state={{ prevPath: location.pathname, title: "동물" }}>
                   동물
                 </Link>
               </li>
@@ -260,6 +264,7 @@ const S = {
 
   ChildMain: styled.main`
     width: 100vw;
+    height: calc(100vh - 12rem);
     min-height: calc(100vh - 12rem);
     transform: translateY(12rem);
     background-color: ${({ theme }) => theme.colors.background};
