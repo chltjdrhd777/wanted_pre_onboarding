@@ -4,7 +4,7 @@ import { AuthCTX } from "utils/context/AuthContext";
 import axios from "redux/api/axios";
 import { useQuery, useMutation } from "react-query";
 import { useDispatch } from "react-redux";
-import { setLogggedIn } from "redux/slice/userSlice";
+import { setLogggedIn, setUserInfo } from "redux/slice/userSlice";
 import { makeClassName } from "utils/helpers/makeClassName";
 
 function EmailCode({ onModalClose }) {
@@ -26,6 +26,7 @@ function EmailCode({ onModalClose }) {
     onSuccess: (data) => {
       console.log(data);
       dispatch(setLogggedIn(true));
+      dispatch(setUserInfo(data.data.user));
       onModalClose();
     },
   });

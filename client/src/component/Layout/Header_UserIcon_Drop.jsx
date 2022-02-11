@@ -35,8 +35,8 @@ function UserIconDrop() {
 
       {dropDownOpen && (
         <S.DropdownBox>
-          <S.DropdownContainer className="flex-center-C">
-            <ul className="flex-center-C">
+          <S.DropdownContainer>
+            <ul>
               <li
                 className="option"
                 onClick={() => {
@@ -83,24 +83,30 @@ const S = {
   `,
   DropdownBox: styled.div`
     position: absolute;
-    width: 12rem;
-    height: 20rem;
+    width: fit-content;
     background-color: ${({ theme }) => theme.colors.boxBackground};
     top: 4rem;
     right: 0.2rem;
     z-index: 300;
     border: 1px solid gray;
     border-radius: 2rem;
-    padding: 1rem;
+    padding: 2rem;
   `,
   DropdownContainer: styled.div`
     width: 100%;
     height: 100%;
+    justify-content: space;
 
     & ul {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       gap: 1rem;
 
       & li {
+        display: flex;
+        gap: 0.5rem;
         cursor: pointer;
         &:hover {
           text-decoration: underline;
@@ -108,6 +114,10 @@ const S = {
 
         & i {
           margin-right: 0.5rem;
+        }
+
+        & span {
+          white-space: nowrap;
         }
       }
     }

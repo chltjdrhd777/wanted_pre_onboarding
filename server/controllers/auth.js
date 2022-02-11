@@ -74,21 +74,36 @@ module.exports = {
       return res.status(409).json({ message: "계정이 존재하지 않습니다!" });
     }
 
-    //@ 토큰생성
+    if (password !== isUser.password) {
+      return res.status(400).json({ message: "비밀번호가 일치하지 않습니다!" });
+    }
+
+    //@ 토큰생성 및 전달데이터 설정
     const accessToken = genAccess({ email });
     const refreshToken = genRefresh({ email });
+
     res.cookie("accessToken", accessToken, {
       // secure: process.env.NODE_ENV === "prod",
+      // sameSite: "None",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 1, //1d
     });
     res.cookie("refreshToken", refreshToken, {
       // secure: process.env.NODE_ENV === "prod",
+      // sameSite: "None",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, //30d
     });
 
-    res.status(200).json({});
+    const dataToSend = { ...isUser.dataValues };
+    delete dataToSend.id;
+    delete dataToSend.password;
+    delete dataToSend.createdAt;
+    delete dataToSend.updatedAt;
+
+    return res.status(200).json({
+      user: dataToSend,
+    });
   },
   signOut(req, res) {
     res.clearCookie("accessToken");
@@ -102,7 +117,7 @@ module.exports = {
     if (mailCodeStorage[email].code === codeInput) {
       //@ 유저생성
       const { password, nickname } = mailCodeStorage[email];
-      await db.User.create({
+      const newUser = await db.User.create({
         email,
         password,
         nickname,
@@ -113,19 +128,30 @@ module.exports = {
       const refreshToken = genRefresh({ email });
       res.cookie("accessToken", accessToken, {
         // secure: process.env.NODE_ENV === "prod",
+        // sameSite: "none",
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 1, //1d
       });
       res.cookie("refreshToken", refreshToken, {
         // secure: process.env.NODE_ENV === "prod",
+        // sameSite: "none",
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 30, //30d
       });
 
-      //@ 임시코드 삭제
+      //@ 임시코드 삭제 및 전달내용 설정
       delete req.app.get("mailCodeStore")[email];
 
-      return res.status(201).json({ message: "회원가입을 완료하였습니다" });
+      const dataToSend = { ...newUser.dataValues };
+      delete dataToSend.id;
+      delete dataToSend.password;
+      delete dataToSend.createdAt;
+      delete dataToSend.updatedAt;
+
+      return res.status(201).json({
+        message: "회원가입을 완료하였습니다",
+        user: dataToSend,
+      });
     } else {
       res.status(404).json({ message: "코드가 일치하지 않습니다!" });
     }
@@ -136,11 +162,13 @@ module.exports = {
     const refreshToken = genRefresh({ email: "guest@guest.com" });
     res.cookie("accessToken", accessToken, {
       // secure: process.env.NODE_ENV === "prod",
+      // sameSite: "none",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 1, //1d
     });
     res.cookie("refreshToken", refreshToken, {
       // secure: process.env.NODE_ENV === "prod",
+      // sameSite: "none",
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 30, //30d
     });

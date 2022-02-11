@@ -25,7 +25,7 @@ const S = {
     min-width: 50rem;
     height: 70%;
     min-height: 60rem;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
