@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useLocation, useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import useMediaQuery from "utils/hooks/useMediaQuery";
+import { Link } from "react-router-dom";
+import Banner from "assets/banner/testBanner.mp4";
+import BoardRecentVisit from "./BoardRecentVisit";
 
 function BoardPage() {
   const location = useLocation();
+  const isUnderDesktop = useMediaQuery("(max-width: 1000px)");
+  //todo 쿠키나 로컬스토리지에 해당 검색기록 저장, 유저가 방문하면 띄움
+  const [recentlyVisited, setRecentlyVisited] = useState([
+    { title: "요리", slug: "food" },
+    { title: "베스트 라이브", slug: "live" },
+    { title: "포켓몬스터", slug: "poketmon" },
+  ]);
 
   return (
     <BoardPageContainerMedia className="flex-center">
@@ -33,6 +44,7 @@ function BoardPage() {
             구독
           </button>
         </div>
+        {/* ////////////////////////////////////////////// */}
 
         <div className="tab-box">
           <div className="board-tab">
@@ -46,27 +58,43 @@ function BoardPage() {
           </div>
 
           <button className="write-btn">
-            <i class="fa-solid fa-pen"></i>
+            <i className="fa-solid fa-pen"></i>
             <span>글쓰기</span>
           </button>
         </div>
+
+        {/* ////////////////////////////////////////////// */}
+
+        <div className="advertise flex-center">
+          <Link to="/" className="adevertise-link">
+            {/* <img src="" alt="advertise" /> */}
+            <video autoPlay loop muted playsInline src={Banner} />
+          </Link>
+        </div>
+
+        {/* ////////////////////////////////////////////// */}
+        <BoardRecentVisit />
+
+        {/* ////////////////////////////////////////////// */}
+        <div>덮는지 여부 테스트 페이지</div>
       </S.BoardContentSection>
-      <S.BoardAside>a</S.BoardAside>
+
+      <S.BoardAside className={isUnderDesktop ? "hide" : ""}>a</S.BoardAside>
     </BoardPageContainerMedia>
   );
 }
 
 const S = {
   BoardPageContainer: styled.div`
-    width: 85%;
-    /* margin: auto; */
-    height: 100%;
+    width: 100%;
+    padding: 0 10%;
+    height: calc(100vh - 12rem);
+    overflow: auto;
     transition: background-color 0.3s ease-in;
     background-color: ${({ theme }) => (theme.mode === "dark" ? theme.colors.blackZero : "white")};
   `,
   BoardContentSection: styled.section`
     height: 100%;
-
     flex: 0.8;
     padding: 1rem;
 
@@ -165,24 +193,62 @@ const S = {
         }
       }
     }
+
+    & .advertise {
+      width: 100%;
+      margin-top: 1rem;
+
+      & .adevertise-link {
+        width: 758px;
+        height: 90px;
+
+        & img,
+        & video {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
   `,
   BoardAside: styled.aside`
     height: 100%;
     flex: 0.2;
-    padding: 1rem;
+    min-width: 27%;
+    max-width: 300px;
     background-color: red;
+
+    &.hide {
+      display: none;
+    }
   `,
 };
 
 const BoardPageContainerMedia = styled(S.BoardPageContainer)`
   @media screen and (max-width: 1000px) {
     width: 100%;
+    padding: 0;
+    height: calc(100vh - 6rem);
     ${S.BoardContentSection} {
       flex: 0.8;
     }
 
     ${S.BoardAside} {
       display: none;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    ${S.BoardContentSection} {
+      & .advertise {
+        & .adevertise-link {
+          width: 100%;
+          height: 100%;
+
+          & img,
+          & video {
+          }
+        }
+      }
     }
   }
 

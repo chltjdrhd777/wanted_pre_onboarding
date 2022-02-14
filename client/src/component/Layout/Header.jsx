@@ -19,7 +19,6 @@ import { setLogggedIn, setUserInfo } from "redux/slice/userSlice";
 function Header({ children }) {
   const dispatch = useDispatch();
   const [loginModalOpen, setLoginModalOpen] = useState(false);
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -264,7 +263,6 @@ const S = {
 
   ChildMain: styled.main`
     width: 100vw;
-    height: calc(100vh - 12rem);
     min-height: calc(100vh - 12rem);
     transform: translateY(12rem);
     background-color: ${({ theme }) => theme.colors.background};

@@ -15,6 +15,8 @@ const GlobalStyles = createGlobalStyle`
   
   body {
       font-size: 1.6rem;
+      height:100vh;
+      min-height:100vh;
       font-family: 'Inter', 'sans-serif';
       user-select: none;
       -webkit-user-select: none; 
