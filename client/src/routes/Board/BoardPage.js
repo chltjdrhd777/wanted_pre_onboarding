@@ -10,12 +10,6 @@ import BoardRecentVisit from "./BoardRecentVisit";
 function BoardPage() {
   const location = useLocation();
   const isUnderDesktop = useMediaQuery("(max-width: 1000px)");
-  //todo 쿠키나 로컬스토리지에 해당 검색기록 저장, 유저가 방문하면 띄움
-  const [recentlyVisited, setRecentlyVisited] = useState([
-    { title: "요리", slug: "food" },
-    { title: "베스트 라이브", slug: "live" },
-    { title: "포켓몬스터", slug: "poketmon" },
-  ]);
 
   return (
     <BoardPageContainerMedia className="flex-center">
@@ -52,9 +46,18 @@ function BoardPage() {
               <i className="fa-solid fa-file"></i>
               <span>전체글</span>
             </button>
-            <button>개념글</button>
-            <button>등록순</button>
-            <button>추천컷</button>
+            <button>
+              <i className="fa-solid fa-star"></i>
+              <span>개념글</span>{" "}
+            </button>
+            <button>
+              <i className="fa-solid fa-arrow-down-1-9"></i>
+              <span>등록순</span>{" "}
+            </button>
+            <button>
+              <i class="fa-solid fa-thumbs-up"></i>
+              <span>추천컷</span>
+            </button>
           </div>
 
           <button className="write-btn">
@@ -112,7 +115,7 @@ const S = {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        align-items: flex-end;
+        align-items: center;
         color: ${({ theme }) => theme.colors.fontColor};
         flex: 1;
 
@@ -147,6 +150,7 @@ const S = {
 
             & i {
               font-size: 0.5rem;
+              color: ${({ theme }) => theme.colors.starColor};
             }
           }
         }
@@ -156,11 +160,12 @@ const S = {
         width: 8rem;
         height: 80%;
         border-radius: 7px;
-        font-weight: 500;
+        font-weight: 400;
         padding: 1rem;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         gap: 0.5rem;
         border: 1px solid gray;
+        ${({ theme }) => theme.modeBoxTheme};
       }
     }
 
@@ -176,7 +181,8 @@ const S = {
         & button {
           border: 1px solid gray;
           padding: 0.7rem 1.2rem;
-          background-color: white;
+          ${({ theme }) => theme.modeBoxTheme};
+
           & > i {
             margin-right: 0.5rem;
           }
@@ -185,9 +191,9 @@ const S = {
 
       & .write-btn {
         padding: 0.5rem 1.5rem;
-        background-color: inherit;
-        color: ${({ theme }) => theme.colors.fontColor};
         border: 1px solid gray;
+        ${({ theme }) => theme.modeBoxTheme};
+
         & i {
           margin-right: 1rem;
         }

@@ -61,6 +61,10 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  i{
+    color:${({ theme }) => theme.colors.pointBlue};
+  }
+
   .flex-center {
     display:flex;
     align-items:center;
