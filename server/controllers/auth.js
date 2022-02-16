@@ -178,7 +178,6 @@ module.exports = {
   checkTokens(req, res) {
     //@ 초기 앱 접속시 토큰 확인해서 유효하지 않으면 로그인상태 푸는 로직
     //@ 에러는 미들웨어에서 처리해줄것이기 떄문에 여기는 응답만 하면 된다.
-
     return res.send("");
   },
 };
