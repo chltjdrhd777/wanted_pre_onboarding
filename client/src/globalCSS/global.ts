@@ -83,6 +83,35 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.pointBlue};
     color:${({ theme }) => theme.colors.grayOne}
   }
+  
+  .small-btn-wrapper{
+    & button{
+      border: 1px solid gray;
+      padding: 0.7rem 1.2rem;
+      border-radius: 7px;
+      ${({ theme }) => theme.modeBoxTheme};
+      font-size: 1.4rem;
+      
+
+      & > i {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .small-link-wrapper{
+    & a{
+      border: 1px solid gray;
+      padding: 0.7rem 1.2rem;
+      border-radius: 7px;
+      ${({ theme }) => theme.modeBoxTheme};
+      font-size: 1.4rem;
+
+      & > i {
+        margin-right: 0.5rem;
+      }
+    }
+  }
 `;
 
 export default GlobalStyles;

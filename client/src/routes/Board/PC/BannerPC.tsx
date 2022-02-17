@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { BoardCTX, BoardCTXType } from "../BoardPageCC";
 
-function AdvertisePC({ banner }) {
+function AdvertisePC() {
+  const {
+    boardState: { banner },
+  } = useContext(BoardCTX) as BoardCTXType;
+
   return (
-    <AdvertiseLayoutMedia className="flex-center">
+    <BannerMedia className="flex-center">
       <Link to="/" className="adevertise-link">
         {/* <img src="" alt="advertise" /> */}
         <video autoPlay loop muted playsInline src={banner} />
       </Link>
-    </AdvertiseLayoutMedia>
+    </BannerMedia>
   );
 }
 
 const S = {
-  AdvertiseLayout: styled.div`
+  Banner: styled.div`
     width: 100%;
     margin-top: 1rem;
 
@@ -31,7 +36,7 @@ const S = {
   `,
 };
 
-const AdvertiseLayoutMedia = styled(S.AdvertiseLayout)`
+const BannerMedia = styled(S.Banner)`
   @media screen and (max-width: 800px) {
     & .adevertise-link {
       width: 100%;

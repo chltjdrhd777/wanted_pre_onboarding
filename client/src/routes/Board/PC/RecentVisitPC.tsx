@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { makeClassName } from "utils/helpers/makeClassName";
+import { BoardCTX, BoardCTXType } from "../BoardPageCC";
 
 function BoardRecentVisit() {
-  //todo 해당 정보는 cookie나 token으로 저장해서 사용한다.
-  const [recentlyVisited, setRecentlyVisited] = useState([
-    { title: "요리", slug: "food" },
-    { title: "베스트 라이브", slug: "live" },
-    { title: "포켓몬스터", slug: "poketmon" },
-    { title: "법률", slug: "law" },
-    { title: "애니메이션/만화", slug: "cartoon" },
-    { title: "애니메이션/만화", slug: "cartoon" },
-    { title: "애니메이션/만화", slug: "cartoon" },
-    { title: "애니메이션/만화", slug: "cartoon" },
-    { title: "애니메이션/만화", slug: "cartoon" },
-    { title: "애니메이션/만화", slug: "cartoon" },
-    { title: "애니메이션/만화", slug: "cartoon" },
-  ]);
+  const {
+    boardState: { recentVisit },
+  } = useContext(BoardCTX) as BoardCTXType;
 
   const [showVisitDetail, setShowVisitDetail] = useState(false);
-  console.log(showVisitDetail);
 
+  //@ blur event
   useEffect(() => {
-    function detectClickOutside(e) {
+    function detectClickOutside(e: any) {
       if (e.target.closest("#recent-visit-detail") === null) {
         setShowVisitDetail(false);
         document.removeEventListener("click", detectClickOutside);
@@ -37,11 +27,11 @@ function BoardRecentVisit() {
     return () => document.removeEventListener("click", detectClickOutside);
   }, [showVisitDetail]);
 
-  const VisitList = (from, to) =>
-    recentlyVisited.slice(from, to).map((visit) => (
-      <li key={visit.title} className="visit-item" data-channel-slug={visit.slug}>
+  const VisitList = (from: number, to?: number) =>
+    recentVisit.slice(from, to).map((visit) => (
+      <li key={visit.title} className="visit-item" data-channel-slug={visit.param}>
         <span className="channel-name">
-          <Link to={`board/${visit.slug}`}>{visit.title}</Link>
+          <Link to={`/board/${visit.param}`}>{visit.title}</Link>
         </span>
 
         <span className="delete">
@@ -51,12 +41,12 @@ function BoardRecentVisit() {
     ));
 
   return (
-    <BoardRecentVisitLayoutMedia>
+    <BoardRecentVisitLayoutMedia className={makeClassName([!recentVisit.length && "hide"])}>
       <h2 className="visit-title">최근 방문</h2>
       <S.RecentVisitUl>{VisitList(0, 5)}</S.RecentVisitUl>
 
       <button
-        className={makeClassName(["visit-spread-btn", recentlyVisited.length < 7 && " hide"])}
+        className={makeClassName(["visit-spread-btn", recentVisit.length < 7 && " hide"])}
         onClick={() => setShowVisitDetail((prev) => !prev)}
       >
         <i className="fa-solid fa-bars"></i>
@@ -87,6 +77,9 @@ const S = {
     padding: 1.5rem 1rem;
     z-index: 1;
     position: relative;
+    &.hide {
+      display: none;
+    }
 
     ${({ theme }) => theme.modeBoxTheme};
 

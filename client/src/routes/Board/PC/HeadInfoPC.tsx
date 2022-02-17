@@ -1,37 +1,45 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
+import { BoardCTX, BoardCTXType } from "../BoardPageCC";
+import { Link, useLocation } from "react-router-dom";
 
-function HeaderInfoPC({ title }) {
+function HeaderInfoPC() {
+  const {
+    boardState: { boardInfo },
+  } = useContext(BoardCTX) as BoardCTXType;
+
+  const { pathname } = useLocation();
+
   return (
-    <HeaderInfoLayoutMedia>
+    <HeaderInfoMedia className="small-btn-wrapper">
       <ul className="info-list">
-        <section className="board-title flex-center">
+        <Link to={pathname} className="board-title flex-center">
           <i className="fa-solid fa-file"></i>
-          <h2>{title} 채널</h2>
-        </section>
+          <h2>{boardInfo.title} 채널</h2>
+        </Link>
 
-        <div className="subscriber">구독자 700명</div>
+        <div className="subscriber">구독자 {boardInfo.subscriberNum}명</div>
 
         <div className="board-owner">
-          <span className="owner-name">@devAnderson</span>
+          <span className="owner-name">{boardInfo.owner}</span>
           <div className="owner-icon flex-center">
             <i className="fa-solid fa-crown"></i>
           </div>
         </div>
 
-        <div className="board-description">헬창들 여기모여라</div>
+        <div className="board-description">{boardInfo.description}</div>
       </ul>
 
-      <button className="subscribe-btn flex-center">
+      <button>
         <i className="fa-solid fa-plus"></i>
         구독
       </button>
-    </HeaderInfoLayoutMedia>
+    </HeaderInfoMedia>
   );
 }
 
 const S = {
-  HeaderInfoLayout: styled.div`
+  HeaderInfo: styled.div`
     width: 100%;
     max-height: 10rem;
     min-height: 5rem;
@@ -46,8 +54,13 @@ const S = {
       flex-wrap: wrap;
       gap: 1rem;
       align-items: center;
-      color: ${({ theme }) => theme.colors.fontColor};
       flex: 1;
+      height: 100%;
+      color: ${({ theme }) => theme.colors.fontColor};
+
+      & a {
+        color: inherit;
+      }
 
       & .board-title {
         gap: 1rem;
@@ -85,21 +98,9 @@ const S = {
         }
       }
     }
-
-    & button.subscribe-btn {
-      width: 8rem;
-      height: 80%;
-      border-radius: 7px;
-      font-weight: 400;
-      padding: 1rem;
-      font-size: 1.4rem;
-      gap: 0.5rem;
-      border: 1px solid gray;
-      ${({ theme }) => theme.modeBoxTheme};
-    }
   `,
 };
 
-const HeaderInfoLayoutMedia = styled(S.HeaderInfoLayout)``;
+const HeaderInfoMedia = styled(S.HeaderInfo)``;
 
 export default HeaderInfoPC;
