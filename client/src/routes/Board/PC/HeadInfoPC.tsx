@@ -52,7 +52,6 @@ const S = {
     & .info-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
       align-items: center;
       flex: 1;
       height: 100%;

@@ -29,7 +29,7 @@ function BoardRecentVisit() {
 
   const VisitList = (from: number, to?: number) =>
     recentVisit.slice(from, to).map((visit) => (
-      <li key={visit.title} className="visit-item" data-channel-slug={visit.param}>
+      <li key={visit.title} className="visit-item">
         <span className="channel-name">
           <Link to={`/board/${visit.param}`}>{visit.title}</Link>
         </span>
@@ -41,7 +41,7 @@ function BoardRecentVisit() {
     ));
 
   return (
-    <BoardRecentVisitLayoutMedia className={makeClassName([!recentVisit.length && "hide"])}>
+    <RecentVisitMedia className={makeClassName([!recentVisit.length && "hide"])}>
       <h2 className="visit-title">최근 방문</h2>
       <S.RecentVisitUl>{VisitList(0, 5)}</S.RecentVisitUl>
 
@@ -52,7 +52,7 @@ function BoardRecentVisit() {
         <i className="fa-solid fa-bars"></i>
       </button>
 
-      <S.RecentVisitDetailBox
+      <S.RecentVisitDetail
         id={"recent-visit-detail"}
         className={makeClassName([!showVisitDetail && "hide"])}
       >
@@ -62,13 +62,13 @@ function BoardRecentVisit() {
         </div>
 
         <S.RecentVisitDetailUl>{VisitList(0)}</S.RecentVisitDetailUl>
-      </S.RecentVisitDetailBox>
-    </BoardRecentVisitLayoutMedia>
+      </S.RecentVisitDetail>
+    </RecentVisitMedia>
   );
 }
 
 const S = {
-  BoardRecentVisitLayout: styled.div`
+  RecentVisit: styled.div`
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
@@ -82,6 +82,9 @@ const S = {
     }
 
     ${({ theme }) => theme.modeBoxTheme};
+
+    & a {
+    }
 
     & h2[class~="visit-title"] {
       font-size: 1.7rem;
@@ -129,7 +132,7 @@ const S = {
       }
     }
   `,
-  RecentVisitDetailBox: styled.div`
+  RecentVisitDetail: styled.div`
     position: absolute;
     left: 0;
     top: 100%;
@@ -137,6 +140,7 @@ const S = {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    border: 1px solid gray;
 
     ${({ theme }) => theme.modeBoxTheme};
 
@@ -158,6 +162,7 @@ const S = {
     padding: 1rem;
     display: flex;
     flex-wrap: wrap;
+    ${({ theme }) => theme.modeBoxTheme};
 
     & li {
       display: flex;
@@ -169,6 +174,10 @@ const S = {
         &:hover {
           text-decoration: underline;
         }
+
+        & a {
+          color: inherit;
+        }
       }
 
       & span[class~="delete"] {
@@ -178,7 +187,7 @@ const S = {
   `,
 };
 
-const BoardRecentVisitLayoutMedia = styled(S.BoardRecentVisitLayout)`
+const RecentVisitMedia = styled(S.RecentVisit)`
   @media screen and (max-width: 800px) {
     ${S.RecentVisitDetailUl} {
       & li {

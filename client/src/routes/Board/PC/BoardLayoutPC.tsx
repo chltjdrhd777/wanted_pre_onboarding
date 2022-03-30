@@ -8,6 +8,9 @@ import FilterOptionPC from "./FilterOptionPC";
 import RecentVisitPC from "./RecentVisitPC";
 import BannerPC from "./BannerPC";
 import TagPC from "./TagPC";
+import ContetListPC from "./ContentListPC";
+import SearchPC from "./SearchPC";
+import FooterPC from "./Footer";
 
 //@layoutPC는 기본 sementic 배치역할
 function BoardLayoutPC() {
@@ -25,7 +28,14 @@ function BoardLayoutPC() {
         <RecentVisitPC />
 
         <TagPC />
-        <div>이것이 사라집니까?</div>
+
+        <ContetListPC />
+
+        <FilterOptionPC />
+
+        <SearchPC />
+
+        <FooterPC />
       </S.ContentSection>
 
       <S.ContentAside className={isUnderDesktop ? "hide" : ""}>
@@ -39,9 +49,10 @@ const S = {
   BoardLayout: styled.div`
     width: 100%;
     padding: 0 10%;
-    height: calc(100vh - 12rem);
+    min-height: calc(100vh - 12rem);
     transition: background-color 0.3s ease-in;
     background-color: ${({ theme }) => (theme.mode === "dark" ? theme.colors.blackZero : "white")};
+    align-items: flex-start;
   `,
   ContentSection: styled.section`
     height: 100%;
@@ -75,7 +86,7 @@ const BoardLayoutMedia = styled(S.BoardLayout)`
   @media screen and (max-width: 1000px) {
     width: 100%;
     padding: 0;
-    height: calc(100vh - 6rem);
+    /* height: calc(100vh - 6rem); */
     ${S.ContentSection} {
       flex: 0.8;
     }

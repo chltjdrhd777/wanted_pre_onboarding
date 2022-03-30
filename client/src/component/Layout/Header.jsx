@@ -178,7 +178,7 @@ const S = {
     z-index: 90;
     color: ${({ theme }) => theme.colors.boxFontColor};
     background-color: ${({ theme }) => theme.colors.boxBackground};
-    box-shadow: 0 1px 8px ${({ theme }) => theme.colors.boxShadowColor};
+    box-shadow: 0 6px 8px ${({ theme }) => theme.colors.boxShadowColor};
 
     transition: background-color 0.3s ease-in;
   `,

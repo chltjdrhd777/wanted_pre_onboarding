@@ -60,7 +60,53 @@ function BoardPageCC() {
         "추천운동",
         "체육관",
       ],
-      pageItems: [],
+      pageItems: [
+        {
+          id: 1,
+          title: "야 이거 좀 괜찮아?",
+          tag: "보충제",
+          writer: "헬창1",
+          createdAt: "2022.02.18",
+          viewCount: 500,
+          like: 30,
+        },
+        {
+          id: 1,
+          title: "야 이거 좀 괜찮아?",
+          tag: "보충제",
+          writer: "헬창2",
+          createdAt: "2022.02.18",
+          viewCount: 500,
+          like: 30,
+        },
+        {
+          id: 1,
+          title: "오늘 운동 잘된듯",
+          tag: "잡담",
+          writer: "헬창3",
+          createdAt: "2022.02.18",
+          viewCount: 500,
+          like: 30,
+        },
+        {
+          id: 1,
+          title: "신세계다 너희들도 앞으로 이런거 해라. 진짜 운동 잘된다.",
+          tag: "잡담",
+          writer: "헬창4",
+          createdAt: "2022.02.18",
+          viewCount: 500,
+          like: 30,
+        },
+        {
+          id: 1,
+          title: "오늘 3시에 만나서 운동하실 분 있습니까?",
+          tag: "일상",
+          writer: "헬창5",
+          createdAt: "2022.02.18",
+          viewCount: 500,
+          like: 30,
+        },
+      ],
     });
   }, []);
 
@@ -79,14 +125,6 @@ function BoardPageCC() {
     filterByTimeOrder() {},
     filterByLikeOrder() {},
   };
-
-  useEffect(() => {
-    //todo 초기 접속시 query가 없는 상태로 요청을 보냄.
-    //todo user의 interaction에 따라 요청처리가 달라짐.
-    //todo 이런 상황이면 contextAPI를 쓰는것이 나아보임.
-    //redux로 하지않는 이유 => 모든 앱에서 전반적으로 사용되는 값이 아니기 때문.
-    //해당 데이터는 오로지 board page의 자식들에서만 사용될 값임.
-  }, []);
 
   return (
     <BoardCTX.Provider value={contextValue}>
