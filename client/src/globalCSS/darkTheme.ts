@@ -1,11 +1,13 @@
+import { css } from "styled-components";
+
 export const colors = {
   //! mode style
-  background: "#F7F7F7",
-  fontColor: "#202020",
-  boxBackground: "white",
-  boxFontColor: "#202020",
-  borderColor: "#808080",
-  boxShadowColor: "rgb(0 0 0 / 10%)",
+  background: "#202020",
+  fontColor: "#F7F7F7",
+  boxBackground: "#202020",
+  boxFontColor: "#F7F7F7",
+  borderColor: "",
+  boxShadowColor: "rgb(255 255 255 / 10%)",
 
   //@ common style
   mainColor: "#4e80e1",
@@ -26,7 +28,7 @@ export const colors = {
   blackZero: "#202020",
   blackOne: "#1c1c1c",
   blackTwo: "#111",
-};
+} as const;
 
 const deviceSizeUnits = {
   mobileS: 320,
@@ -36,10 +38,19 @@ const deviceSizeUnits = {
   desktop: 922,
   tabletL: 1024,
   fullScreen: 1980,
-};
+} as const;
 
-export const whiteTheme = {
-  mode: "white",
+const modeBoxTheme = css`
+  background-color: ${colors.background};
+  color: ${colors.fontColor};
+  transition: background-color 0.3s ease-in;
+` as {};
+
+export const darkTheme = {
+  mode: "dark",
   colors,
   deviceSizeUnits,
+  modeBoxTheme,
 };
+
+export type darkThemeType = typeof darkTheme;

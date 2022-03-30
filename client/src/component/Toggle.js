@@ -14,7 +14,7 @@ const S = {
     width: 7rem;
     height: 7rem;
     border-radius: 50%;
-    border: 2px solid ${({ theme }) => theme.colors.borderColor};
+    border: 2px solid ${({ theme }) => theme.colors.pointBlue};
     color: ${({ theme }) => theme.colors.fontColor};
     font-size: 3rem;
     overflow: hidden;

@@ -14,6 +14,7 @@ function ProfileTab() {
   const [editValue, setEditValue] = useState({
     nickname: "ready",
   });
+
   const { data, isLoading, isSuccess, isError, isFetchedAfterMount, ...rest } = useQuery(
     ["profile"],
     () => axios.get("/user"),
@@ -45,7 +46,7 @@ function ProfileTab() {
   }, [isError]);
 
   useEffect(() => {
-    if (isFetchedAfterMount) {
+    if (isFetchedAfterMount && isSuccess) {
       setUser(data.data.user);
     }
   }, [isFetchedAfterMount]);

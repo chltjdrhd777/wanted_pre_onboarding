@@ -76,7 +76,7 @@ const S = {
     height: 3.8rem;
     border-radius: 50%;
     padding: 1.5rem;
-    border: 0.13rem solid ${({ theme }) => theme.colors.fontColor};
+    border: 0.13rem solid ${({ theme }) => theme.colors.pointBlue};
     cursor: pointer;
     color: ${({ theme }) => theme.colors.fontColor};
     position: relative;
